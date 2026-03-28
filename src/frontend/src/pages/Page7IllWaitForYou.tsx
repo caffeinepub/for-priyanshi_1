@@ -176,12 +176,23 @@ export default function Page7IllWaitForYou({ onNext, onPrev }: Page7Props) {
           No pressure. No expectations. Just honesty.
         </p>
 
-        <div className="stagger-4 flex justify-between">
+        <div className="stagger-4 flex justify-start mb-4">
           <button type="button" className="btn-nav" onClick={onPrev}>
-            ← Back
+            &#x2190; Back
           </button>
-          <button type="button" className="btn-romantic" onClick={onNext}>
-            One Last Thing →
+        </div>
+
+        <div className="stagger-4 flex justify-center">
+          <button
+            type="button"
+            className="btn-romantic font-bold"
+            onClick={onNext}
+            style={{
+              fontSize: "clamp(1rem, 2.5vw, 1.15rem)",
+              letterSpacing: "0.03em",
+            }}
+          >
+            My Last Message For You &#x1F48C;
           </button>
         </div>
       </div>

@@ -1,139 +1,8 @@
-import { useEffect, useState } from "react";
-import { useSubmitResponse } from "../hooks/useQueries";
-
-type ChoiceState = "none" | "yes" | "think";
-
-interface HeartDrop {
-  id: number;
-  left: string;
-  delay: string;
-  duration: string;
-  emoji: string;
-}
-
-function CelebrationOverlay() {
-  const hearts: HeartDrop[] = Array.from({ length: 30 }, (_, i) => ({
-    id: i,
-    left: `${(i * 3.4 + Math.sin(i) * 4).toFixed(1)}%`,
-    delay: `${(i * 0.12).toFixed(2)}s`,
-    duration: `${2.2 + (i % 5) * 0.4}s`,
-    emoji: [
-      "\uD83D\uDC96",
-      "\uD83D\uDC95",
-      "\u2728",
-      "\uD83D\uDCAB",
-      "\uD83C\uDF38",
-      "\u2B50",
-    ][i % 6],
-  }));
-
-  return (
-    <div
-      className="fixed inset-0 z-[150] flex flex-col items-center justify-center text-center px-6"
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(246,214,216,0.97) 0%, rgba(232,167,182,0.97) 100%)",
-      }}
-      data-ocid="celebration.modal"
-    >
-      {hearts.map((h) => (
-        <span
-          key={h.id}
-          className="heart-rain"
-          style={{
-            left: h.left,
-            top: "-40px",
-            fontSize: `${1.2 + (h.id % 3) * 0.5}rem`,
-            animationDuration: h.duration,
-            animationDelay: h.delay,
-          }}
-        >
-          {h.emoji}
-        </span>
-      ))}
-      <div className="celebration-pop relative z-10">
-        <p
-          className="priyanshi-name"
-          style={{ fontSize: "clamp(2rem,7vw,3.5rem)", marginBottom: "1rem" }}
-        >
-          You just made me the happiest person alive {"\uD83D\uDCAB"}
-        </p>
-        <p
-          className="font-lato"
-          style={{
-            color: "var(--taupe)",
-            fontSize: "clamp(0.95rem,2vw,1.1rem)",
-            lineHeight: 1.75,
-            maxWidth: "480px",
-          }}
-        >
-          Yuvraj is smiling so wide right now. Thank you, Priyanshi.{" "}
-          {"\uD83D\uDC95"}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function ThinkOverlay() {
-  return (
-    <div
-      className="fixed inset-0 z-[150] flex flex-col items-center justify-center text-center px-6"
-      style={{
-        background:
-          "linear-gradient(135deg, rgba(201,182,230,0.97) 0%, rgba(221,208,240,0.97) 100%)",
-      }}
-      data-ocid="think.modal"
-    >
-      <div className="celebration-pop">
-        <div style={{ fontSize: "4rem", marginBottom: "1rem" }}>
-          {"\uD83C\uDF19"}
-        </div>
-        <p
-          className="font-playfair"
-          style={{
-            color: "var(--brown)",
-            fontSize: "clamp(1.5rem,4vw,2.2rem)",
-            fontWeight: 700,
-            marginBottom: "1rem",
-          }}
-        >
-          Take your time, I&apos;ll be here {"\uD83D\uDE0A"}
-        </p>
-        <p
-          className="font-lato"
-          style={{
-            color: "var(--taupe)",
-            fontSize: "clamp(0.95rem,2vw,1.05rem)",
-            lineHeight: 1.75,
-            maxWidth: "420px",
-          }}
-        >
-          No rush, no pressure. Whenever you&apos;re ready &mdash; or not.
-          Either way, you matter. {"\uD83C\uDF19"}
-        </p>
-      </div>
-    </div>
-  );
-}
-
 interface Page7Props {
   onPrev: () => void;
 }
 
 export default function Page7HerChoice({ onPrev }: Page7Props) {
-  const [choice, setChoice] = useState<ChoiceState>("none");
-  const { mutate: submitResponse } = useSubmitResponse();
-
-  useEffect(() => {
-    if (choice !== "none") {
-      submitResponse(choice);
-    }
-  }, [choice, submitResponse]);
-
-  if (choice === "yes") return <CelebrationOverlay />;
-  if (choice === "think") return <ThinkOverlay />;
-
   return (
     <section
       className="page-fade-in min-h-screen flex flex-col items-center justify-center px-6 py-28 relative"
@@ -190,19 +59,36 @@ export default function Page7HerChoice({ onPrev }: Page7Props) {
         </div>
         <div
           className="stagger-2 romantic-card text-left mb-6"
-          style={{ background: "rgba(247,239,231,0.88)" }}
+          style={{ background: "rgba(247,239,231,0.92)" }}
         >
           <p
             className="font-lato"
             style={{
               color: "var(--taupe)",
-              fontSize: "clamp(0.95rem,2.2vw,1.05rem)",
-              lineHeight: 1.95,
+              fontSize: "clamp(0.95rem,2.2vw,1.08rem)",
+              lineHeight: 2,
             }}
           >
-            I don&apos;t want to pressure you in any way. You don&apos;t owe me
-            anything. But I wanted to be honest with you, because you deserve
-            honesty. Whatever you decide, I&apos;ll respect it completely.
+            I&apos;m always here for you.
+            <br />
+            <br />
+            I&apos;m not going anywhere. Not because I&apos;m waiting &mdash;
+            but because you genuinely matter to me, feelings or no feelings.
+            You&apos;re someone I care about, and that doesn&apos;t just switch
+            off.
+            <br />
+            <br />
+            {"\uD83E\uDD1D"}
+            <br />
+            <br />
+            If you ever want to talk &mdash; about anything, anytime &mdash;
+            I&apos;m here. As a friend. No awkwardness, no pressure, no strings.
+            Just someone who&apos;s always one text away. {"\uD83D\uDCAC\u2728"}
+            <br />
+            <br />
+            {"\uD83C\uDF38"} Even if we don&apos;t talk for months &mdash; if
+            one day you need someone, I&apos;ll still pick up. That&apos;s just
+            how it is.
           </p>
         </div>
         <p
@@ -217,24 +103,6 @@ export default function Page7HerChoice({ onPrev }: Page7Props) {
         >
           &mdash; Yuvraj
         </p>
-        <div className="stagger-4 flex flex-col sm:flex-row gap-4 justify-center mb-8">
-          <button
-            type="button"
-            className="btn-yes"
-            onClick={() => setChoice("yes")}
-            data-ocid="choice.primary_button"
-          >
-            YES {"\uD83D\uDC96"}
-          </button>
-          <button
-            type="button"
-            className="btn-think"
-            onClick={() => setChoice("think")}
-            data-ocid="choice.secondary_button"
-          >
-            LET ME THINK {"\uD83C\uDF19"}
-          </button>
-        </div>
         <div className="stagger-5">
           <button
             type="button"
